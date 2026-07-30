@@ -13,11 +13,19 @@ async function appendMsg(role, text, files = []) {
   div.className = 'msg ' + role;
   const label = role === 'user' ? 'you' : 'albot';
 
-  // マークダウンをHTMLに変換し、DOMPurifyでサニタイズ（DOMPurifyにKaTeX/SVG描画クラス・要素を許可）
+  // GFM (GitHub Flavored Markdown) オプション設定（改行 \n を <br> に変換する breaks: true）
+  if (typeof marked !== 'undefined' && marked.setOptions) {
+    marked.setOptions({
+      gfm: true,
+      breaks: true
+    });
+  }
+
+  // マークダウンをHTMLに変換し、DOMPurifyでサニタイズ（DOMPurifyにKaTeX/SVG/Tasklistタグ・属性を許可）
   const rawHtml = marked.parse(text || '');
   const cleanHtml = DOMPurify.sanitize(rawHtml, {
-    ADD_TAGS: ['math', 'annotation', 'semantics', 'mrow', 'mi', 'mo', 'mn', 'msup', 'msub', 'mfrac', 'mover', 'munder', 'mspace', 'msqrt', 'mtable', 'mtr', 'mtd', 'svg', 'path', 'g'],
-    ADD_ATTR: ['encoding', 'xmlns', 'display', 'viewBox', 'd', 'fill', 'stroke', 'stroke-width']
+    ADD_TAGS: ['math', 'annotation', 'semantics', 'mrow', 'mi', 'mo', 'mn', 'msup', 'msub', 'mfrac', 'mover', 'munder', 'mspace', 'msqrt', 'mtable', 'mtr', 'mtd', 'svg', 'path', 'g', 'input', 'del', 'ins', 'sub', 'sup', 'mark'],
+    ADD_ATTR: ['encoding', 'xmlns', 'display', 'viewBox', 'd', 'fill', 'stroke', 'stroke-width', 'type', 'checked', 'disabled']
   });
 
   div.innerHTML = `<div class="role">${label}</div><div class="content">${cleanHtml}</div>`;

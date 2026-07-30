@@ -171,6 +171,36 @@
 .msg .content th {
   background: var(--panel-card);
   font-weight: 600;
+  color: var(--accent);
+}
+.msg .content tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* タスクリスト・打消し線・水平線・ハイライト記法 */
+.msg .content ul input[type="checkbox"] {
+  margin-right: 8px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.msg .content del {
+  color: var(--text-sub);
+  text-decoration: line-through;
+}
+.msg .content hr {
+  border: none;
+  border-top: 1px dashed var(--border-light);
+  margin: 18px 0;
+}
+.msg .content mark {
+  background: rgba(251, 191, 36, 0.25);
+  color: var(--warn);
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+.msg .content sub, .msg .content sup {
+  font-size: 0.75em;
+  color: var(--accent-hover);
 }
 
 /* プロンプト入力エリア (コンパクト フローティング) */
