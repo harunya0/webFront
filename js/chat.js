@@ -7,16 +7,61 @@ function logSystem(text) {
   log.scrollTop = log.scrollHeight;
 }
 
-// role: 'user' | 'bot'。text はMarkdownとして描画され、files は添付カードとして表示される
 async function appendMsg(role, text, files = []) {
   const log = document.getElementById('log');
   const div = document.createElement('div');
   div.className = 'msg ' + role;
   const label = role === 'user' ? 'you' : 'albot';
 
-  // マークダウンをHTMLに変換し、DOMPurifyでサニタイズしてから挿入
-  const htmlContent = DOMPurify.sanitize(marked.parse(text || ''));
-  div.innerHTML = `<div class="role">${label}</div><div class="content">${htmlContent}</div>`;
+  // マークダウンをHTMLに変換し、DOMPurifyでサニタイズ（DOMPurifyにKaTeX/SVG描画クラス・要素を許可）
+  const rawHtml = marked.parse(text || '');
+  const cleanHtml = DOMPurify.sanitize(rawHtml, {
+    ADD_TAGS: ['math', 'annotation', 'semantics', 'mrow', 'mi', 'mo', 'mn', 'msup', 'msub', 'mfrac', 'mover', 'munder', 'mspace', 'msqrt', 'mtable', 'mtr', 'mtd', 'svg', 'path', 'g'],
+    ADD_ATTR: ['encoding', 'xmlns', 'display', 'viewBox', 'd', 'fill', 'stroke', 'stroke-width']
+  });
+
+  div.innerHTML = `<div class="role">${label}</div><div class="content">${cleanHtml}</div>`;
+
+  // 1. KaTeX 数式自動レンダリング ($...$, $$...$$, \(...\), \[...\])
+  if (window.renderMathInElement) {
+    renderMathInElement(div, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      throwOnError: false
+    });
+  }
+
+  // 2. Highlight.js コードブロック構文ハイライト
+  if (window.hljs) {
+    div.querySelectorAll('pre code').forEach((block) => {
+      if (!block.classList.contains('language-mermaid')) {
+        hljs.highlightElement(block);
+      }
+    });
+  }
+
+  // 3. Mermaid.js ダイアグラムレンダリング
+  if (window.mermaid) {
+    const mermaidBlocks = div.querySelectorAll('pre code.language-mermaid');
+    for (let i = 0; i < mermaidBlocks.length; i++) {
+      const codeBlock = mermaidBlocks[i];
+      const pre = codeBlock.parentElement;
+      const graphDefinition = codeBlock.textContent;
+      const mermaidDiv = document.createElement('div');
+      mermaidDiv.className = 'mermaid';
+      mermaidDiv.textContent = graphDefinition;
+      pre.replaceWith(mermaidDiv);
+    }
+    try {
+      await mermaid.run({ nodes: div.querySelectorAll('.mermaid') });
+    } catch (err) {
+      console.warn('Mermaid render error:', err);
+    }
+  }
 
   if (files.length > 0) {
     const attachDiv = document.createElement('div');
