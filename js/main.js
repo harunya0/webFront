@@ -1,22 +1,21 @@
-// テキストエリアの高さを内容に合わせて自動調整（CSSのmax-heightで上限）
 function autoGrowMessageInput() {
   const el = document.getElementById('messageInput');
+  if (!el) return;
   el.style.height = 'auto';
-  el.style.height = el.scrollHeight + 'px';
+  el.style.height = Math.min(el.scrollHeight, 200) + 'px';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('apiBaseInput').value = getApiBase();
-  document.getElementById('tokenInput').value = getToken();
-
   const messageInput = document.getElementById('messageInput');
-  messageInput.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
-  });
-  messageInput.addEventListener('input', autoGrowMessageInput);
+  if (messageInput) {
+    messageInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+    messageInput.addEventListener('input', autoGrowMessageInput);
+  }
 
   initDragAndDrop();
   initSidebarAutoClose();
