@@ -1,22 +1,23 @@
-/*
- * Statusbar CSS: Glassmorphic Floating Header
+/* 
+ * Glassmorphic Floating Header Statusbar
  */
 #statusbar {
-  background: rgba(22, 22, 27, 0.85);
+  background: rgba(17, 17, 21, 0.85);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
-  padding: 0 20px;
-  height: 52px;
+  padding: 0 24px;
+  height: 56px;
   display: flex;
   align-items: center;
   z-index: 10;
   flex-shrink: 0;
+  position: relative;
 }
 
 .statusbar-main {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
   width: 100%;
 }
 
@@ -24,7 +25,7 @@
   display: none;
   background: transparent;
   border: none;
-  font-size: 18px;
+  font-size: 20px;
   padding: 4px 8px;
   color: var(--text-muted);
 }
@@ -33,10 +34,10 @@
 .statusbar-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 16px;
+  font-size: 17px;
   letter-spacing: 0.04em;
   color: var(--accent);
-  margin-right: 8px;
+  margin-right: 12px;
 }
 
 .item {
@@ -45,21 +46,26 @@
   font-family: var(--font-mono);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .item .val {
   color: var(--text);
-  background: var(--panel-alt);
-  border: 1px solid var(--border);
-  padding: 2px 8px;
-  border-radius: 4px;
+  background: var(--panel-card);
+  border: 1px solid var(--border-light);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-weight: 500;
 }
 
 .online-item {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  background: rgba(82, 183, 136, 0.1);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(82, 183, 136, 0.25);
 }
 
 .pulse {
@@ -67,36 +73,38 @@
   height: 8px;
   background-color: #52b788;
   border-radius: 50%;
-  box-shadow: 0 0 8px rgba(82, 183, 136, 0.6);
+  box-shadow: 0 0 10px rgba(82, 183, 136, 0.7);
   animation: pulseGlow 2s infinite ease-in-out;
 }
 
 @keyframes pulseGlow {
   0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.2); opacity: 0.6; }
+  50% { transform: scale(1.25); opacity: 0.5; }
 }
 
 .online-label {
-  font-size: 11.5px;
-  font-weight: 600;
+  font-size: 11px;
+  font-family: var(--font-display);
+  font-weight: 700;
   color: #52b788;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
 }
 
 .details-toggle {
   display: none;
   margin-left: auto;
-  font-size: 11px;
-  padding: 3px 8px;
+  font-size: 11.5px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
 }
 
 .statusbar-details {
   display: none;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   background: var(--panel-alt);
-  padding: 10px 16px;
+  padding: 12px 20px;
   border-bottom: 1px solid var(--border);
 }
 .statusbar-details.open {
