@@ -1,15 +1,35 @@
+/* 
+ * Base CSS: Warm Editorial Minimalist Design System
+ * Inspired by high-craft editorial interfaces
+ */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
 :root {
-  --bg: #12141A;
-  --panel: #1A1D24;
-  --panel-alt: #20232C;
-  --border: #262A33;
-  --text: #E6E8EB;
-  --text-muted: #7D8590;
-  --accent: #4FD1C5;
-  --accent-dim: #2B7A73;
-  --warn: #E8A33D;
-  --danger: #E5534B;
-  --radius: 6px;
+  --bg: #111114;
+  --bg-deep: #0c0c0e;
+  --panel: #16161b;
+  --panel-alt: #1c1c23;
+  --panel-card: #23232b;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-light: rgba(255, 255, 255, 0.14);
+  
+  --text: #f1f1f4;
+  --text-muted: #9595a8;
+  --text-sub: #636375;
+  
+  --accent: #e07a5f;
+  --accent-dim: #c5654b;
+  --accent-soft: rgba(224, 122, 95, 0.12);
+  --accent-glow: 0 0 20px rgba(224, 122, 95, 0.25);
+  
+  --warn: #e9c46a;
+  --danger: #e76f51;
+  --radius: 8px;
+  --radius-lg: 16px;
+  
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 * { box-sizing: border-box; }
@@ -20,18 +40,23 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.65;
   height: 100vh;
-  height: 100dvh; /* モバイルブラウザのアドレスバー分の誤差を吸収 */
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-.mono { font-family: 'IBM Plex Mono', monospace; }
+.mono { font-family: var(--font-mono); }
 
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-sub); }
 
 /* フォーム要素の共通スタイル */
 input[type=text], input[type=password], select, textarea {
@@ -39,29 +64,60 @@ input[type=text], input[type=password], select, textarea {
   background: var(--panel-alt);
   border: 1px solid var(--border);
   color: var(--text);
-  padding: 7px 9px;
+  padding: 8px 12px;
   border-radius: var(--radius);
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  margin-bottom: 6px;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  margin-bottom: 8px;
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 input:focus, select:focus, textarea:focus {
-  outline: none;
-  border-color: var(--accent-dim);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft), var(--accent-glow);
 }
 
 button {
   background: var(--panel-alt);
   border: 1px solid var(--border);
   color: var(--text);
-  padding: 7px 12px;
+  padding: 8px 14px;
   border-radius: var(--radius);
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
-button:hover { border-color: var(--accent-dim); color: var(--accent); }
-button.primary { background: var(--accent-dim); border-color: var(--accent-dim); color: #0D1117; }
-button.primary:hover { color: #0D1117; }
+button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+button.primary {
+  background: linear-gradient(135deg, #e07a5f, #c5654b);
+  border-color: transparent;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(224, 122, 95, 0.35);
+}
+button.primary:hover {
+  color: #ffffff;
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 6px 18px rgba(224, 122, 95, 0.5);
+}
 button.full { width: 100%; }
-button.icon-btn { padding: 7px 10px; font-size: 14px; }
+button.icon-btn { padding: 8px 12px; font-size: 15px; }
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 90;
+}
+.overlay.active { display: block; }

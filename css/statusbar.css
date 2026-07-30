@@ -1,51 +1,104 @@
+/*
+ * Statusbar CSS: Glassmorphic Floating Header
+ */
 #statusbar {
-  background: var(--panel);
+  background: rgba(22, 22, 27, 0.85);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
-  color: var(--text-muted);
+  padding: 0 20px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  z-index: 10;
   flex-shrink: 0;
 }
+
 .statusbar-main {
   display: flex;
   align-items: center;
-  gap: 24px;
-  padding: 10px 20px;
-}
-#statusbar .item { display: flex; align-items: center; gap: 6px; }
-#statusbar .val { color: var(--text); }
-.statusbar-title { display: none; color: var(--text); font-weight: 500; font-size: 13px; }
-.details-toggle { display: none; }
-.statusbar-details { display: none; }
-
-.pulse {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 0 rgba(79, 209, 197, 0.5);
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(79, 209, 197, 0.4); }
-  70% { box-shadow: 0 0 0 6px rgba(79, 209, 197, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(79, 209, 197, 0); }
+  gap: 16px;
+  width: 100%;
 }
 
-/* スマホ用メニューボタン（普段は非表示、responsive.css で表示） */
 .menu-toggle {
   display: none;
   background: transparent;
-  border: 1px solid var(--border);
-  color: var(--accent);
+  border: none;
+  font-size: 18px;
   padding: 4px 8px;
-  font-size: 11px;
+  color: var(--text-muted);
+}
+.menu-toggle:hover { color: var(--text); }
+
+.statusbar-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-right: 8px;
+}
+
+.item {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.item .val {
+  color: var(--text);
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
   border-radius: 4px;
 }
 
-.overlay {
+.online-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pulse {
+  width: 8px;
+  height: 8px;
+  background-color: #52b788;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(82, 183, 136, 0.6);
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.6; }
+}
+
+.online-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #52b788;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.details-toggle {
   display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 999;
-  backdrop-filter: blur(2px);
+  margin-left: auto;
+  font-size: 11px;
+  padding: 3px 8px;
+}
+
+.statusbar-details {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--panel-alt);
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.statusbar-details.open {
+  display: flex;
 }
