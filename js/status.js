@@ -1,13 +1,21 @@
 async function refreshStatus() {
   try {
     const status = await api('/status');
-    const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    if (!status) return;
+
+    const setEl = (id, val) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = val;
+    };
+
     setEl('sbModel', status.current_model);
     setEl('sbSession', status.current_session);
     setEl('sbUptime', formatUptime(status.uptime_seconds));
     
     const modelSelect = document.getElementById('modelSelect');
-    if (modelSelect) modelSelect.value = status.current_model;
+    if (modelSelect && status.current_model) {
+      modelSelect.value = status.current_model;
+    }
 
     const channelLabel = status.current_channel_id === "0" ? "0 (Web単独)" : status.current_channel_id;
     setEl('sbChannel', channelLabel);
@@ -24,7 +32,7 @@ async function refreshStatus() {
     }
 
     // チャンネル/セッションが変わっていたら履歴を再読み込み
-    if (currentLoadedChannel !== status.current_channel_id || currentLoadedSession !== status.current_session) {
+    if (typeof currentLoadedChannel !== 'undefined' && (currentLoadedChannel !== status.current_channel_id || currentLoadedSession !== status.current_session)) {
       currentLoadedChannel = status.current_channel_id;
       currentLoadedSession = status.current_session;
       await loadHistory();
@@ -32,7 +40,9 @@ async function refreshStatus() {
 
     await refreshSessionList(status.current_session);
   } catch (e) {
-    logSystem('ステータス取得失敗: ' + (e.message || e));
+    if (typeof logSystem === 'function') {
+      logSystem('ステータス取得失敗: ' + (e.message || e));
+    }
     console.error('詳細エラー:', e);
   }
 }
