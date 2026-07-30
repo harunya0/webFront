@@ -1,53 +1,58 @@
-/* チャットログ表示エリア */
+/* チャットログ & メッセージバブル（Warm Editorial スタイル） */
 .chat-log {
   flex: 1;
   overflow-y: auto;
-  padding: 30px 20px;
+  padding: 40px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
+  gap: 36px;
 }
 
-/* メッセージコンテナ（Claudeのように中央寄せで最大幅制御） */
 .msg {
   width: 100%;
   max-width: 768px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  animation: fadeInMsg 0.25s ease-out;
+  gap: 10px;
+  animation: slideUpMsg 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes fadeInMsg {
-  from { opacity: 0; transform: translateY(6px); }
+@keyframes slideUpMsg {
+  from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .msg-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 13px;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: 14px;
   font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .msg-avatar {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   color: #fff;
+  box-shadow: var(--shadow-sm);
 }
 .msg.user .msg-avatar {
-  background-color: var(--text-sub);
+  background: linear-gradient(135deg, #4a4e69, #22223b);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 .msg.bot .msg-avatar {
-  background-color: var(--accent-primary);
+  background: linear-gradient(135deg, #e07a5f, #d06040);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 12px rgba(224, 122, 95, 0.3);
 }
 
 .msg-author {
@@ -55,10 +60,10 @@
 }
 
 .msg-body {
-  padding-left: 34px;
+  padding-left: 40px;
   color: var(--text-main);
-  line-height: 1.65;
-  font-size: 14.5px;
+  line-height: 1.75;
+  font-size: 15px;
 }
 
 .msg.system {
@@ -67,12 +72,33 @@
 }
 .msg.system .msg-body {
   padding-left: 0;
-  font-size: 12px;
-  color: var(--text-sub);
+  font-size: 12.5px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
   background-color: var(--bg-card);
   border: 1px solid var(--border-light);
-  padding: 6px 14px;
+  padding: 8px 18px;
   border-radius: var(--radius-pill);
+}
+
+/* オーラ思考中アニメーション */
+.typing-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent-primary);
+  font-weight: 500;
+  font-family: var(--font-display);
+}
+.typing-dots::after {
+  content: "•••";
+  animation: auraPulse 1.2s infinite ease-in-out;
+  letter-spacing: 2px;
+}
+
+@keyframes auraPulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1.1); }
 }
 
 /* フローティングプロンプト入力エリア */
@@ -80,28 +106,30 @@
   width: 100%;
   max-width: 808px;
   margin: 0 auto;
-  padding: 0 20px 20px 20px;
+  padding: 0 24px 24px 24px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   flex-shrink: 0;
 }
 
 .prompt-box {
-  background-color: var(--bg-card);
+  background: var(--bg-card);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-lg);
-  padding: 12px 14px 10px 14px;
+  padding: 14px 16px 12px 16px;
   box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  gap: 12px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(10px);
 }
 
 .prompt-box:focus-within {
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 2px var(--accent-soft), var(--shadow-md);
+  box-shadow: 0 0 0 3px var(--accent-soft), var(--accent-glow), var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 #messageInput {
@@ -111,10 +139,10 @@
   color: var(--text-main);
   font-family: var(--font-sans);
   font-size: 15px;
-  line-height: 1.5;
+  line-height: 1.6;
   resize: none;
-  max-height: 200px;
-  min-height: 44px;
+  max-height: 220px;
+  min-height: 48px;
   outline: none;
   padding: 0;
 }
@@ -131,39 +159,46 @@
 .prompt-left-actions {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .attach-btn {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: var(--radius-sm);
   color: var(--text-muted);
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-light);
 }
 .attach-btn:hover {
   background-color: var(--bg-panel);
-  color: var(--text-main);
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
 }
 
 .send-btn {
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   border-radius: var(--radius-md);
-  background-color: var(--accent-primary);
+  background: linear-gradient(135deg, #e07a5f, #d06040);
   color: #fff;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 14px rgba(224, 122, 95, 0.4);
 }
 .send-btn:hover {
-  background-color: var(--accent-hover);
+  transform: scale(1.04);
+  box-shadow: 0 6px 20px rgba(224, 122, 95, 0.6);
 }
 .send-btn:disabled {
-  background-color: var(--bg-panel);
+  background: var(--bg-panel);
   color: var(--text-sub);
   box-shadow: none;
+  transform: none;
 }
 
 .prompt-footer-hint {
   text-align: center;
-  font-size: 11px;
+  font-size: 11.5px;
+  font-family: var(--font-display);
   color: var(--text-sub);
+  letter-spacing: 0.02em;
 }
