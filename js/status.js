@@ -1,21 +1,26 @@
 async function refreshStatus() {
   try {
     const status = await api('/status');
-    document.getElementById('sbModel').textContent = status.current_model;
-    document.getElementById('sbSession').textContent = status.current_session;
-    document.getElementById('sbUptime').textContent = formatUptime(status.uptime_seconds);
-    document.getElementById('modelSelect').value = status.current_model;
+    const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    setEl('sbModel', status.current_model);
+    setEl('sbSession', status.current_session);
+    setEl('sbUptime', formatUptime(status.uptime_seconds));
+    
+    const modelSelect = document.getElementById('modelSelect');
+    if (modelSelect) modelSelect.value = status.current_model;
 
     const channelLabel = status.current_channel_id === "0" ? "0 (Web単独)" : status.current_channel_id;
-    document.getElementById('sbChannel').textContent = channelLabel;
+    setEl('sbChannel', channelLabel);
 
-    // モバイル用の折りたたみ詳細行にも同じ値を反映
-    document.getElementById('sbModelM').textContent = status.current_model;
-    document.getElementById('sbSessionM').textContent = status.current_session;
-    document.getElementById('sbUptimeM').textContent = formatUptime(status.uptime_seconds);
-    document.getElementById('sbChannelM').textContent = channelLabel;
-    if (document.getElementById('channelInput').value === "") {
-      document.getElementById('channelInput').value = status.current_channel_id === "0" ? "" : status.current_channel_id;
+    // モバイル用・サブ用要素
+    setEl('sbModelM', status.current_model);
+    setEl('sbSessionM', status.current_session);
+    setEl('sbUptimeM', formatUptime(status.uptime_seconds));
+    setEl('sbChannelM', channelLabel);
+    
+    const channelInput = document.getElementById('channelInput');
+    if (channelInput && channelInput.value === "") {
+      channelInput.value = status.current_channel_id === "0" ? "" : status.current_channel_id;
     }
 
     // チャンネル/セッションが変わっていたら履歴を再読み込み
