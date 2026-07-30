@@ -1,35 +1,106 @@
 /*
- * Responsive CSS: Mobile & Tablet layout optimization
+ * Responsive CSS: Mobile & Tablet Ultra-Optimized Layout
  */
+
+/* モバイル表示 (768px以下) の完全修復と最適化 */
 @media (max-width: 768px) {
+  /* ドロワーサイドバーの配置修復 */
   #sidebar {
     position: fixed;
-    top: 0; left: 0; bottom: 0;
+    top: 0; 
+    left: 0; 
+    bottom: 0;
+    width: 280px;
+    max-width: 82vw;
+    height: 100vh;
+    height: 100dvh;
     transform: translateX(-100%);
-    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.6);
+    box-shadow: 10px 0 36px rgba(0, 0, 0, 0.85);
+    z-index: 100;
   }
   #sidebar.open {
     transform: translateX(0);
   }
 
+  /* トグルボタン表示 */
   .menu-toggle {
-    display: inline-block;
+    display: inline-flex !important;
   }
 
   .details-toggle {
-    display: inline-block;
+    display: inline-flex !important;
   }
 
-  /* モバイルではステータスバーの長大表示を折りたたむ */
+  /* ステータスバーのモバイルスリム化 */
+  #statusbar {
+    padding: 0 12px;
+    height: 44px;
+  }
+
+  .statusbar-main {
+    gap: 8px;
+  }
+
+  .statusbar-title {
+    font-size: 14px;
+    margin-right: 2px;
+  }
+
+  /* モバイルではステータスバーの長大表示を非表示にし、「詳細」トグルで開閉可能に */
   .statusbar-main .item:not(.online-item) {
     display: none;
   }
 
-  #log {
-    padding: 20px 14px;
+  .statusbar-details {
+    position: absolute;
+    top: 44px;
+    left: 0; right: 0;
+    z-index: 15;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
   }
-  
+
+  /* メインログエリアのモバイル最適化 */
+  #log {
+    padding: 16px 12px;
+  }
+
+  .msg {
+    margin-bottom: 16px;
+    max-width: 100%;
+  }
+
+  .msg .content {
+    font-size: 13.5px;
+    line-height: 1.6;
+  }
+
+  .msg .content pre {
+    padding: 10px 12px;
+    margin: 10px 0;
+  }
+
+  /* プロンプト入力エリアのモバイル最適化 */
   #inputArea {
-    padding: 12px 14px 16px 14px;
+    padding: 8px 10px 12px 10px;
+    gap: 6px;
+    max-width: 100%;
+  }
+
+  #inputArea textarea {
+    padding: 9px 12px;
+    font-size: 14px;
+    border-radius: var(--radius);
+  }
+
+  #inputArea button {
+    height: 38px;
+    padding: 0 12px;
+    border-radius: var(--radius);
+    font-size: 12px;
+  }
+
+  #inputArea button.icon-btn {
+    padding: 0 10px;
+    font-size: 15px;
   }
 }
