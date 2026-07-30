@@ -1,32 +1,32 @@
 /* 
- * Warm Editorial Minimalist Design System
- * 既存の全HTML ID・JS動作を100%保持したまま、格調高いハイエンドUIへ刷新
+ * Design System: Luxury Minimal Dark (Warm Editorial Refinement)
  */
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 :root {
-  --bg-deep: #0b0b0e;
-  --bg: #111115;
-  --panel: #16161c;
-  --panel-alt: #1c1c24;
-  --panel-card: #22222c;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-light: rgba(255, 255, 255, 0.14);
+  --bg-deep: #09090b;
+  --bg: #0e0e12;
+  --panel: #141419;
+  --panel-alt: #1a1a22;
+  --panel-card: #20202a;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-light: rgba(255, 255, 255, 0.12);
   
-  --text: #f0f0f4;
-  --text-muted: #9595a8;
-  --text-sub: #656578;
+  --text: #f4f4f7;
+  --text-muted: #9999ac;
+  --text-sub: #606072;
   
-  /* Accent Color Story: Terracotta Warm Amber */
+  /* Color Story: Warm Ember Amber */
   --accent: #e07a5f;
   --accent-hover: #ea8a70;
   --accent-dim: #c5654b;
-  --accent-soft: rgba(224, 122, 95, 0.14);
+  --accent-soft: rgba(224, 122, 95, 0.12);
   --accent-glow: 0 0 24px rgba(224, 122, 95, 0.28);
   
-  --warn: #e9c46a;
+  --warn: #f4a261;
   --danger: #e76f51;
-  --radius: 8px;
+  --radius-sm: 6px;
+  --radius: 10px;
   --radius-lg: 18px;
   --radius-pill: 9999px;
   
@@ -35,7 +35,7 @@
   --font-mono: 'JetBrains Mono', monospace;
   
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.5);
 }
 
 * { box-sizing: border-box; }
@@ -58,36 +58,36 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* 画面背景の微細なアンバーグラデーション */
+/* アンバーオーラグローの微細なアンビエント照明 */
 body::before {
   content: "";
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(circle at 50% 0%, rgba(224, 122, 95, 0.03), transparent 70%);
+  top: -100px; left: 20%; right: 20%; height: 300px;
+  background: radial-gradient(ellipse at center, rgba(224, 122, 95, 0.05), transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
 
 .mono { font-family: var(--font-mono); }
 
-::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: var(--radius-pill); }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-sub); }
 
-/* フォーム要素の共通スタイル */
+/* フォームパーツの洗練 */
 input[type=text], input[type=password], select, textarea {
   width: 100%;
   background: var(--panel-alt);
   border: 1px solid var(--border);
   color: var(--text);
-  padding: 9px 13px;
+  padding: 10px 14px;
   border-radius: var(--radius);
   font-family: var(--font-sans);
   font-size: 13.5px;
   margin-bottom: 8px;
   outline: none;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 input:focus, select:focus, textarea:focus {
@@ -99,7 +99,7 @@ button {
   background: var(--panel-alt);
   border: 1px solid var(--border);
   color: var(--text);
-  padding: 8px 14px;
+  padding: 9px 16px;
   border-radius: var(--radius);
   font-family: var(--font-display);
   font-size: 13px;
@@ -120,22 +120,22 @@ button.primary {
   border-color: transparent;
   color: #ffffff;
   font-weight: 600;
-  box-shadow: 0 4px 14px rgba(224, 122, 95, 0.35);
+  box-shadow: 0 4px 16px rgba(224, 122, 95, 0.35);
 }
 button.primary:hover {
   color: #ffffff;
   transform: translateY(-1px) scale(1.02);
-  box-shadow: 0 6px 18px rgba(224, 122, 95, 0.5);
+  box-shadow: 0 6px 20px rgba(224, 122, 95, 0.55);
 }
 button.full { width: 100%; }
-button.icon-btn { padding: 8px 12px; font-size: 15px; }
+button.icon-btn { padding: 9px 14px; font-size: 16px; }
 
 .overlay {
   display: none;
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
   z-index: 90;
 }
 .overlay.active { display: block; }

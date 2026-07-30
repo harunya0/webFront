@@ -1,5 +1,5 @@
-/* 
- * Sidebar CSS: Warm Editorial Navigation Panel
+/*
+ * Sidebar CSS: Luxury Control Center Sidebar
  */
 #body {
   display: flex;
@@ -8,18 +8,22 @@
 }
 
 #sidebar {
-  width: 280px;
+  width: 290px;
   background: var(--panel);
   border-right: 1px solid var(--border);
   overflow-y: auto;
-  padding: 22px 16px;
+  padding: 24px 18px;
   flex-shrink: 0;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 20;
 }
 
 .section {
-  margin-bottom: 26px;
+  margin-bottom: 28px;
+  background: rgba(26, 26, 34, 0.4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
 }
 
 .section-label {
@@ -27,7 +31,7 @@
   font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: var(--text-sub);
+  color: var(--accent);
   text-transform: uppercase;
   margin-bottom: 12px;
   display: flex;
@@ -43,7 +47,6 @@
   box-shadow: var(--accent-glow);
 }
 
-/* モデル選択ドロップダウン */
 select#modelSelect {
   background: var(--panel-card);
   border: 1px solid var(--border-light);
@@ -58,15 +61,16 @@ select#modelSelect {
 }
 select#modelSelect:hover {
   border-color: var(--accent);
+  box-shadow: var(--accent-glow);
 }
 
 .session-list, .search-results {
   list-style: none;
   padding: 0;
-  margin: 10px 0 0;
+  margin: 12px 0 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .session-list li {
@@ -74,27 +78,31 @@ select#modelSelect:hover {
   justify-content: space-between;
   align-items: center;
   padding: 9px 12px;
-  font-size: 13.5px;
-  border-radius: var(--radius);
+  font-size: 13px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   color: var(--text-muted);
-  background: transparent;
+  background: var(--panel-alt);
+  border: 1px solid transparent;
   transition: all 0.15s ease;
 }
 .session-list li:hover {
-  background: var(--panel-alt);
+  background: var(--panel-card);
+  border-color: var(--border-light);
   color: var(--text);
+  transform: translateX(2px);
 }
 .session-list li.active {
   background: var(--accent-soft);
   color: var(--accent);
   font-weight: 600;
-  border-left: 3px solid var(--accent);
+  border: 1px solid rgba(224, 122, 95, 0.3);
+  box-shadow: var(--accent-glow);
 }
 .session-list .del {
   color: var(--danger);
   opacity: 0;
-  font-size: 11.5px;
+  font-size: 11px;
   padding: 2px 6px;
   border-radius: 4px;
   transition: opacity 0.15s ease;
@@ -103,14 +111,14 @@ select#modelSelect:hover {
   opacity: 1;
 }
 .session-list .del:hover {
-  background: rgba(231, 111, 81, 0.15);
+  background: rgba(231, 111, 81, 0.2);
 }
 
 .search-result {
   background: var(--panel-card);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  padding: 12px;
   margin-bottom: 8px;
   font-size: 13px;
   box-shadow: var(--shadow-sm);
@@ -139,7 +147,7 @@ select#modelSelect:hover {
   gap: 8px;
   font-size: 12.5px;
   color: var(--text-muted);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   cursor: pointer;
   user-select: none;
 }
@@ -161,7 +169,7 @@ select#modelSelect:hover {
 .search-result-ai .ai-desc pre {
   background: var(--bg-deep);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
   padding: 10px 12px;
   overflow-x: auto;
 }
