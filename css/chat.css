@@ -1,5 +1,5 @@
 /*
- * Chat CSS: Reader-Focused Claude Editorial Canvas & Floating Action Bar
+ * Chat CSS: Cool Cyan Reader Canvas & Floating Slate Prompt Bar
  */
 #main {
   flex: 1;
@@ -12,7 +12,7 @@
 }
 
 #main.drag-over {
-  background: rgba(224, 122, 95, 0.06);
+  background: rgba(56, 189, 248, 0.06);
   outline: 2px dashed var(--accent);
   outline-offset: -8px;
 }
@@ -60,7 +60,7 @@
   color: var(--accent);
   padding: 2px 7px;
   border-radius: 4px;
-  border: 1px solid rgba(224, 122, 95, 0.2);
+  border: 1px solid rgba(56, 189, 248, 0.25);
 }
 .msg.bot .role::before {
   content: 'ALBOT';
@@ -119,13 +119,13 @@
 }
 
 .msg .content pre {
-  background: #0b0b0e;
+  background: #07090e;
   border: 1px solid var(--border-light);
   border-radius: var(--radius);
   padding: 18px 20px;
   overflow-x: auto;
   margin: 20px 0;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.55);
 }
 .msg .content code {
   font-family: var(--font-mono);
@@ -194,7 +194,7 @@
   padding: 16px 20px;
   font-size: 15px;
   line-height: 1.55;
-  box-shadow: 0 10px 36px rgba(0,0,0,0.55);
+  box-shadow: 0 10px 36px rgba(0,0,0,0.6);
   max-height: 220px;
   overflow-y: auto;
   resize: none;
@@ -203,7 +203,7 @@
 }
 #inputArea textarea:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft), var(--accent-glow), 0 10px 36px rgba(0,0,0,0.55);
+  box-shadow: 0 0 0 3px var(--accent-soft), var(--accent-glow), 0 10px 36px rgba(0,0,0,0.6);
 }
 
 #inputArea button {

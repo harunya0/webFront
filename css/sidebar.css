@@ -1,5 +1,5 @@
 /*
- * Sidebar CSS: Luxury Control Center Sidebar
+ * Sidebar CSS: Cool Cyber Control Sidebar
  */
 #body {
   display: flex;
@@ -19,8 +19,8 @@
 }
 
 .section {
-  margin-bottom: 28px;
-  background: rgba(26, 26, 34, 0.4);
+  margin-bottom: 24px;
+  background: rgba(23, 29, 44, 0.45);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 16px;
@@ -96,7 +96,7 @@ select#modelSelect:hover {
   background: var(--accent-soft);
   color: var(--accent);
   font-weight: 600;
-  border: 1px solid rgba(224, 122, 95, 0.3);
+  border: 1px solid rgba(56, 189, 248, 0.35);
   box-shadow: var(--accent-glow);
 }
 .session-list .del {
@@ -111,7 +111,7 @@ select#modelSelect:hover {
   opacity: 1;
 }
 .session-list .del:hover {
-  background: rgba(231, 111, 81, 0.2);
+  background: rgba(248, 113, 113, 0.2);
 }
 
 .search-result {

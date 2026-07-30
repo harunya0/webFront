@@ -1,8 +1,8 @@
 /*
- * Statusbar CSS: Glassmorphic Floating Top Header
+ * Statusbar CSS: Cool Cyan Glassmorphic Header
  */
 #statusbar {
-  background: rgba(14, 14, 18, 0.85);
+  background: rgba(13, 16, 23, 0.88);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
   padding: 0 24px;
@@ -62,18 +62,18 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(82, 183, 136, 0.1);
+  background: rgba(56, 189, 248, 0.08);
   padding: 4px 12px;
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(82, 183, 136, 0.3);
+  border: 1px solid rgba(56, 189, 248, 0.25);
 }
 
 .pulse {
   width: 8px;
   height: 8px;
-  background-color: #52b788;
+  background-color: var(--accent);
   border-radius: 50%;
-  box-shadow: 0 0 12px rgba(82, 183, 136, 0.8);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.9);
   animation: pulseGlow 2s infinite ease-in-out;
 }
 
@@ -86,7 +86,7 @@
   font-size: 11px;
   font-family: var(--font-display);
   font-weight: 700;
-  color: #52b788;
+  color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
