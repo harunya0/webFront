@@ -15,11 +15,34 @@
 <link rel="stylesheet" href="/css/sidebar.css">
 <link rel="stylesheet" href="/css/chat.css">
 <link rel="stylesheet" href="/css/files.css">
+<link rel="stylesheet" href="/css/artifacts.css">
 <link rel="stylesheet" href="/css/responsive.css">
 </head>
 <body>
 
 <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+
+<!-- Claude風 右スライドイン アーティファクトパネル -->
+<div id="artifactsPanel" class="artifacts-panel">
+  <div class="artifacts-header">
+    <div class="artifacts-title-info">
+      <span id="artifactsTitle" class="artifacts-title">code.txt</span>
+      <span id="artifactsBadge" class="artifacts-type-badge">TEXT</span>
+    </div>
+    <div class="artifacts-actions">
+      <div class="artifacts-tabs">
+        <button id="artTabCode" class="artifacts-tab-btn active" onclick="switchArtifactTab('code')">コード</button>
+        <button id="artTabPreview" class="artifacts-tab-btn" onclick="switchArtifactTab('preview')" style="display:none;">プレビュー</button>
+      </div>
+      <button class="code-action-btn" onclick="downloadArtifact()">ダウンロード ⤓</button>
+      <button class="artifacts-close-btn" onclick="closeArtifact()">✕</button>
+    </div>
+  </div>
+  <div class="artifacts-body">
+    <pre id="artifactsCodeView" class="artifacts-code-view"></pre>
+    <iframe id="artifactsPreviewFrame" class="artifacts-preview-frame" style="display:none;" sandbox="allow-scripts allow-same-origin"></iframe>
+  </div>
+</div>
 
 <div id="statusbar">
   <div class="statusbar-main">
@@ -123,6 +146,7 @@
 <script src="/js/api.js"></script>
 <script src="/js/state.js"></script>
 <script src="/js/files.js"></script>
+<script src="/js/artifacts.js"></script>
 <script src="/js/chat.js"></script>
 <script src="/js/status.js"></script>
 <script src="/js/search.js"></script>

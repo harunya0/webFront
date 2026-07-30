@@ -43,14 +43,46 @@ async function appendMsg(role, text, files = []) {
     });
   }
 
-  // 2. Highlight.js コードブロック構文ハイライト
-  if (window.hljs) {
-    div.querySelectorAll('pre code').forEach((block) => {
-      if (!block.classList.contains('language-mermaid')) {
-        hljs.highlightElement(block);
-      }
-    });
-  }
+  // 2. Highlight.js コードブロック構文ハイライト & Claude風アーティファクト用ヘッダーラッパー付与
+  div.querySelectorAll('pre code').forEach((block) => {
+    if (block.classList.contains('language-mermaid')) return;
+
+    if (window.hljs) {
+      hljs.highlightElement(block);
+    }
+
+    const pre = block.parentElement;
+    if (pre && !pre.parentElement.classList.contains('code-block-wrapper')) {
+      const match = block.className.match(/language-([^\s]+)/);
+      const lang = match ? match[1] : 'text';
+      const codeText = block.textContent;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block-wrapper';
+
+      const header = document.createElement('div');
+      header.className = 'code-block-header';
+      header.innerHTML = `
+        <span class="code-block-lang">${lang}</span>
+        <div class="code-block-actions">
+          <button class="code-action-btn copy-btn">コピー</button>
+          <button class="code-action-btn artifact-btn">アーティファクトで開く ↗</button>
+        </div>
+      `;
+
+      header.querySelector('.copy-btn').addEventListener('click', (e) => {
+        copyCodeToClipboard(codeText, e.target);
+      });
+
+      header.querySelector('.artifact-btn').addEventListener('click', () => {
+        openArtifact(`code.${lang}`, lang, codeText);
+      });
+
+      pre.replaceWith(wrapper);
+      wrapper.appendChild(header);
+      wrapper.appendChild(pre);
+    }
+  });
 
   // 3. Mermaid.js ダイアグラムレンダリング
   if (window.mermaid) {

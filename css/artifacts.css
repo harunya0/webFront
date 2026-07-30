@@ -1,0 +1,196 @@
+/*
+ * Artifacts Panel & Interactive Code Header CSS
+ */
+
+/* コードブロック上部の Claude風 ヘッダー */
+.code-block-wrapper {
+  margin: 16px 0;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #07090e;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+.code-block-wrapper pre {
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.code-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--panel-alt);
+  padding: 6px 14px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+.code-block-lang {
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.code-block-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.code-action-btn {
+  background: var(--panel-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.code-action-btn:hover {
+  color: var(--text);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* 右サイド スライドイン アーティファクトパネル */
+.artifacts-panel {
+  position: fixed;
+  top: 44px;
+  right: 0;
+  bottom: 0;
+  width: 50vw;
+  min-width: 360px;
+  max-width: 800px;
+  background: var(--panel);
+  border-left: 1px solid var(--border);
+  box-shadow: -10px 0 36px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 80;
+}
+
+.artifacts-panel.open {
+  transform: translateX(0);
+}
+
+.artifacts-header {
+  height: 48px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--panel-alt);
+}
+
+.artifacts-title-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.artifacts-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--accent);
+}
+
+.artifacts-type-badge {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.artifacts-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.artifacts-tabs {
+  display: flex;
+  background: var(--panel-card);
+  padding: 3px;
+  border-radius: var(--radius-sm);
+  gap: 2px;
+}
+
+.artifacts-tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 11.5px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.artifacts-tab-btn.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.artifacts-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.artifacts-close-btn:hover {
+  color: var(--accent);
+}
+
+.artifacts-body {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-deep);
+}
+
+.artifacts-code-view {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 16px;
+  overflow: auto;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.55;
+  background: #07090e;
+}
+
+.artifacts-preview-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #ffffff;
+}
+
+/* スマホ表示時の全画面表示調整 */
+@media (max-width: 768px) {
+  .artifacts-panel {
+    width: 100vw;
+    min-width: 100vw;
+    top: 44px;
+  }
+}
