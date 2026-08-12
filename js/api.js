@@ -19,7 +19,7 @@ function saveConnection() {
 
 // /api 配下への共通fetchラッパー。バックエンドURL・トークン・JSONヘッダを自動付与する
 async function api(path, options = {}) {
-  const res = await fetch(getApiBase() + '/api' + path, {
+  const res = await fetch(getApiBase() + path, {
     ...options,
     headers: {
       ...options.headers,
